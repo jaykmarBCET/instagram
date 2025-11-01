@@ -1,8 +1,8 @@
-import { View, Text, Image, TextInput, Pressable } from 'react-native'
+import { View, Text, Image, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import * as ImagePicker from "expo-image-picker"
 import Button from '@/components/Button'
-
+import { cld, uploadImage } from '@/lib/cloudinary'
 
 
 const PostScreen = () => {
@@ -15,11 +15,18 @@ const PostScreen = () => {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [3, 4],
-      quality: 1
+      quality: 0.5
     })
 
-    if(result.canceled)return
-     setImage(result.assets[0].uri )
+    if (result.canceled) return
+    setImage(result.assets[0].uri)
+  }
+
+
+  const createPost = async () => {
+    if(!image)return
+   const response = await uploadImage(image)
+   console.log(response.public_id)
   }
 
   useEffect(() => {
@@ -37,7 +44,7 @@ const PostScreen = () => {
       <Text onPress={pickImage} className='text-blue-500 font-semibold m-5'>Change</Text>
       <TextInput value={caption} onChangeText={(value) => setCaption(value)} className="w-full p-3" placeholder='What is on your mind' />
       <View className='mt-auto w-full'>
-        <Button onPress={()=>""} title='Share'/>
+        <Button onPress={() => createPost()} title='Share' />
       </View>
     </View>
   )
