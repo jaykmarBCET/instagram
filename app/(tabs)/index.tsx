@@ -12,7 +12,8 @@ const FeedScreen = () => {
     <FlatList
       data={posts}
       keyExtractor={(item) => item.id}
-      contentContainerStyle={{ gap: 10 }}
+      contentContainerStyle={{ gap: 10,alignSelf:"center",maxWidth:512,width:"100%" }}
+      className='self-center'
       renderItem={({ item }) => (
         <PostListItem post={item} />
       )}
