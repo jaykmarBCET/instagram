@@ -1,6 +1,7 @@
 import { View, Text, Image, TextInput, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import * as ImagePicker from "expo-image-picker"
+import Button from '@/components/Button'
 
 
 
@@ -17,7 +18,8 @@ const PostScreen = () => {
       quality: 1
     })
 
-    setImage(result.assets ? [0].uri )
+    if(result.canceled)return
+     setImage(result.assets[0].uri )
   }
 
   useEffect(() => {
@@ -35,9 +37,7 @@ const PostScreen = () => {
       <Text onPress={pickImage} className='text-blue-500 font-semibold m-5'>Change</Text>
       <TextInput value={caption} onChangeText={(value) => setCaption(value)} className="w-full p-3" placeholder='What is on your mind' />
       <View className='mt-auto w-full'>
-        <Pressable className='bg-blue-500 w-full p-3 rounded-md '>
-          <Text className='text-white text-center font-semibold'>Share Post</Text>
-        </Pressable>
+        <Button onPress={()=>""} title='Share'/>
       </View>
     </View>
   )

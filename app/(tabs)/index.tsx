@@ -13,7 +13,8 @@ const FeedScreen = () => {
       data={posts}
       keyExtractor={(item) => item.id}
       contentContainerStyle={{ gap: 10,alignSelf:"center",maxWidth:512,width:"100%" }}
-      className='self-center'
+      className='self-center  '
+      contentContainerClassName=' pb-96'
       renderItem={({ item }) => (
         <PostListItem post={item} />
       )}
